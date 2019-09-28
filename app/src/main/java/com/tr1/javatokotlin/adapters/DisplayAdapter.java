@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.tr1.javatokotlin.R;
+import com.tr1.javatokotlin.app.Util;
 import com.tr1.javatokotlin.models.Repository;
 
 import java.util.List;
