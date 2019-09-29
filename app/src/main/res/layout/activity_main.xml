@@ -1,27 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical">
-
-	<androidx.appcompat.widget.Toolbar
-		android:id="@+id/toolbar"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:background="@color/colorPrimary"
-		android:minHeight="?attr/actionBarSize"
-		app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+	android:orientation="horizontal">
 
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical"
+		android:paddingStart="30dp"
 		android:paddingTop="10dp"
-		android:paddingBottom="10dp"
 		android:paddingEnd="30dp"
-		android:paddingStart="30dp">
+		android:paddingBottom="10dp">
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/inputLayoutName"
@@ -34,7 +25,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="30dp"
-				android:hint="@string/et_your_name"/>
+				android:hint="@string/et_your_name" />
 
 		</com.google.android.material.textfield.TextInputLayout>
 
@@ -42,7 +33,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:onClick="saveName"
-			android:text="@string/btn_save_name"/>
+			android:text="@string/btn_save_name" />
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/inputLayoutRepoName"
@@ -54,7 +45,7 @@
 				android:id="@+id/etRepoName"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/et_repository_search"/>
+				android:hint="@string/et_repository_search" />
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
@@ -66,14 +57,14 @@
 				android:id="@+id/etLanguage"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/et_language"/>
+				android:hint="@string/et_language" />
 		</com.google.android.material.textfield.TextInputLayout>
 
 		<Button
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:onClick="listRepositories"
-			android:text="@string/btn_search_repositories"/>
+			android:text="@string/btn_search_repositories" />
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/inputLayoutGithubUser"
@@ -85,7 +76,7 @@
 				android:id="@+id/etGithubUser"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="@string/et_hint_github_username"/>
+				android:hint="@string/et_hint_github_username" />
 
 		</com.google.android.material.textfield.TextInputLayout>
 
@@ -93,8 +84,16 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:onClick="listUserRepositories"
-			android:text="@string/btn_search_github_user"/>
+			android:text="@string/btn_search_github_user" />
 
 	</LinearLayout>
+
+	<androidx.appcompat.widget.Toolbar
+		android:id="@+id/toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/colorPrimary"
+		android:minHeight="?attr/actionBarSize"
+		app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </LinearLayout>
