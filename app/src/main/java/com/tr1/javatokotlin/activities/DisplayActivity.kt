@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 
 import com.tr1.javatokotlin.R
 import com.tr1.javatokotlin.adapters.DisplayAdapter
 import com.tr1.javatokotlin.app.Constants
-import com.tr1.javatokotlin.app.Util
+import com.tr1.javatokotlin.extensions.showErrorMessage
+import com.tr1.javatokotlin.extensions.toast
 import com.tr1.javatokotlin.models.Repository
 import com.tr1.javatokotlin.models.SearchResponse
 import com.tr1.javatokotlin.retrofit.GithubAPIService
@@ -22,7 +24,6 @@ import com.tr1.javatokotlin.retrofit.RetrofitClient
 
 import java.util.HashMap
 
-import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_display.*
 import kotlinx.android.synthetic.main.header.view.*
 import retrofit2.Call
@@ -90,16 +91,16 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     if (browsedRepositories.isNotEmpty())
                         setupRecyclerView(browsedRepositories)
                     else
-                        Util.showMessage(this@DisplayActivity, "No Items Found")
+                        toast("No Items Found")
 
                 } else {
                     Log.i(TAG, "Error $response")
-                    Util.showErrorMessage(this@DisplayActivity, response.errorBody()!!)
+                    showErrorMessage(response.errorBody()!!)
                 }
             }
 
             override fun onFailure(call: Call<List<Repository>>, t: Throwable) {
-                Util.showMessage(this@DisplayActivity, t.message)
+                toast("Error fetching Result")
             }
         })
     }
@@ -126,16 +127,17 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                     if (browsedRepositories.isEmpty())
                         setupRecyclerView(browsedRepositories)
                     else
-                        Util.showMessage(this@DisplayActivity, "No Items Found")
+                        toast("No Items Found")
 
                 } else {
                     Log.i(TAG, "error $response")
-                    Util.showErrorMessage(this@DisplayActivity, response.errorBody()!!)
+                    showErrorMessage(response.errorBody()!!)
                 }
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                Util.showMessage(this@DisplayActivity, t.toString())
+                toast(t.toString(),Toast.LENGTH_LONG)
+
             }
         })
     }
@@ -148,22 +150,24 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
 
         menuItem.isChecked = true
-        closeDrawer()
-
         when (menuItem.itemId) {
 
             R.id.item_bookmark -> {
-                showBookmarks()
-                supportActionBar!!.title = "Showing Bookmarks"
+                consumeMenuEvent({showBookmarks()} ,"Showing Bookmarks")
             }
 
             R.id.item_browsed_results -> {
-                showBrowsedResults()
-                supportActionBar!!.title = "Showing Browsed Results"
+                consumeMenuEvent({ showBrowsedResults()} , "Showing Browsed Results")
             }
         }
 
         return true
+    }
+
+    private fun consumeMenuEvent(myFunc: () -> Unit, title:String){
+        myFunc()
+        closeDrawer()
+        supportActionBar!!.title = title
     }
 
     private fun showBrowsedResults() {

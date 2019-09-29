@@ -10,7 +10,7 @@ import android.view.ViewGroup
 
 
 import com.tr1.javatokotlin.R
-import com.tr1.javatokotlin.app.Util
+import com.tr1.javatokotlin.extensions.toast
 import com.tr1.javatokotlin.models.Repository
 import kotlinx.android.synthetic.main.list_item.view.*
 
@@ -30,7 +30,7 @@ class DisplayAdapter(private val context: Context, private var repositoryList: L
 
     fun swap(dataList: List<Repository>) {
         if (dataList.isEmpty())
-            Util.showMessage(context, "No Items Found")
+            context.toast("No Items Found")
         this.repositoryList = dataList
         notifyDataSetChanged()
     }

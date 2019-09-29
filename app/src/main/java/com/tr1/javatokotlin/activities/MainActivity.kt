@@ -4,11 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputLayout
 import com.tr1.javatokotlin.R
 import com.tr1.javatokotlin.app.Constants
+import com.tr1.javatokotlin.extensions.isNotEmpty
 import  kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -24,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun saveName(view: View){
-        if(isNotEmpty(etName, inputLayoutRepoName)) {
+        if(etName.isNotEmpty(  inputLayoutRepoName)) {
             val personName = etName.text.toString()
             val sp = getSharedPreferences(Constants.APP_SHARED_PREFERENCES, Context.MODE_PRIVATE)
             val editor = sp.edit()
@@ -35,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     fun listRepositories(view:View){
 
-        if(isNotEmpty(etRepoName, inputLayoutRepoName)) {
+        if(etRepoName.isNotEmpty(inputLayoutRepoName)) {
             val queryRepo = etRepoName.text.toString()
             val repoLanguage = etLanguage.text.toString()
 
@@ -49,26 +48,13 @@ class MainActivity : AppCompatActivity() {
 
     fun listUserRepositories(view: View){
 
-        if(isNotEmpty(etGithubUser, inputLayoutRepoName)) {
+        if(etGithubUser.isNotEmpty(inputLayoutRepoName)) {
             val gitHubUser = etGithubUser.text.toString()
 
             val intent = Intent(this@MainActivity, DisplayActivity::class.java)
             intent.putExtra(Constants.KEY_QUERY_TYPE, Constants.SEARCH_BY_USER)
             intent.putExtra(Constants.KEY_GITHUB_USER, gitHubUser)
             startActivity(intent)
-        }
-    }
-
-    fun isNotEmpty(editText: EditText , textInputLayout : TextInputLayout): Boolean{
-        if(editText.text.toString().isEmpty())
-        {
-            textInputLayout.error = "Connot be black !"
-            return false
-        }
-        else
-        {
-            textInputLayout.isErrorEnabled = false
-            return true
         }
     }
 }
