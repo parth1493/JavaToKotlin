@@ -2,12 +2,10 @@ package com.tr1.javatokotlin.activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.tr1.javatokotlin.R
 import com.tr1.javatokotlin.app.Constants
