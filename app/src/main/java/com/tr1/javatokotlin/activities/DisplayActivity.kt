@@ -21,6 +21,7 @@ import com.tr1.javatokotlin.models.Repository
 import com.tr1.javatokotlin.models.SearchResponse
 import com.tr1.javatokotlin.retrofit.GithubAPIService
 import com.tr1.javatokotlin.retrofit.RetrofitClient
+import io.realm.Realm
 
 import java.util.HashMap
 
@@ -164,7 +165,7 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         return true
     }
 
-    private fun consumeMenuEvent(myFunc: () -> Unit, title:String){
+    private inline fun consumeMenuEvent(myFunc: () -> Unit, title:String){
         myFunc()
         closeDrawer()
         supportActionBar!!.title = title
@@ -175,6 +176,12 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     private fun showBookmarks() {
+        var realm = Realm.getDefaultInstance()
+
+        realm.executeTransaction { realm: Realm ->
+            var bookMarkRepoList = realm.where(Repository::class.java).findAll()
+            displayAdapter.swap(bookMarkRepoList)
+        }
     }
 
     private fun closeDrawer() {
@@ -182,7 +189,11 @@ class DisplayActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     override fun onBackPressed() {
-
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            closeDrawer()
+        else {
+            super.onBackPressed()
+        }
     }
 
     companion object {

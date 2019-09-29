@@ -1,4 +1,5 @@
 package com.tr1.javatokotlin.models
 
+import io.realm.RealmObject
 
-data class Owner( var id: Int,var login: String?)
+open class Owner( var id: Int =0 ,var login: String? = null) : RealmObject()

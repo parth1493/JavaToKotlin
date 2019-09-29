@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.tr1.javatokotlin.R
 import com.tr1.javatokotlin.extensions.toast
 import com.tr1.javatokotlin.models.Repository
+import io.realm.Realm
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class DisplayAdapter(private val context: Context, private var repositoryList: List<Repository> ) : RecyclerView.Adapter<DisplayAdapter.MyViewHolder>() {
@@ -70,8 +71,20 @@ class DisplayAdapter(private val context: Context, private var repositoryList: L
 
         private fun bookmarkRepository(current: Repository?) {
 
+            current.let {
+                var realm = Realm.getDefaultInstance()
+
+                   realm.executeTransactionAsync (
+                           {
+                               realm -> realm.copyToRealmOrUpdate(current)
+                           }, {
+                               context.toast("Bookmarked Successfully")
+                           }, {
+                               context.toast("Error Occurred")
+                           })
+                }
+            }
         }
-    }
 
     companion object {
 
